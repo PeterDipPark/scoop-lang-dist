@@ -1,34 +1,48 @@
+<!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title>Scoop Lang</title>
-		<script src="index.min.js" ></script>
 	</head>
 	<body>
-		<div data-locale-source="true" class="c-layout__cell"><ul role="list" class="c-scooplang__row w-list-unstyled"><li class="c-scooplang__col">key</li><li class="c-scooplang__col">en</li><li class="c-scooplang__col">de</li></ul><ul role="list" class="c-scooplang__row w-list-unstyled"><li class="c-scooplang__col">nokey</li><li class="c-scooplang__col">df&lt;br&gt;df</li><li class="c-scooplang__col">dfdf</li></ul></div>
-		
 		<script type="text/javascript">
-			scoopLangResources = {
-						    en: {
-						      common:  {
-									        "key": "hello world"
-									    }//require("../locales/de/common.json"),
-						    },
-						    de: {
-						      common: {
-								        "key": "hello welt"
-								      }//require("../locales/en/common.json"),
-						    },
-						  };
+			document.documentElement.style = "display: none;";
+			window.onload = function() {
+			    var head = document.getElementsByTagName("head")[0];
+			    var script = document.createElement("script"); 
+			    script.setAttribute("type", "text/javascript");
+			    script.setAttribute("src", "index.min.js");
+			    head.addEventListener("error", function(event) {
+			        console.error("Script not loaded", event);
+			        var source = document.querySelector("[data-locale-source]");
+			        if (source!==null) {
+			        	source.parentElement.removeChild(source);
+			        }
+			        document.documentElement.removeAttribute("style");
+			    }, true);
+			    head.appendChild(script); 
+			}
 		</script>
-		<h1 data-locale-key="key">Scoop Lang Build 1.0.0</h1>
+		<div data-locale-source>
+			<ul>
+				<li>key</li>
+				<li>en</li>
+				<li>de</li>
+			</ul>
+			<ul>
+				<li>key</li>
+				<li>Translate me!</li>
+				<li>Übersetze mich!</li>
+			</ul>
+		</div>
+		<h1 data-locale-key="key">Translate me!</h1>
 		<hr>
-		<a href="#" data-locale-set="de">to de</a><br>
-		<a href="#" data-locale-set="en">to en</a>
+		<a href="#" data-locale-set="en">EN</a>
+		<a href="#" data-locale-set="de">DE</a><br>		
 		<hr>
 		<select data-locale-set>
-			<option value="xx">xx</option>
-			<option value="de">de</option>
-			<option value="en">en</option>			
+			<option value="en">EN</option>
+			<option value="de">DE</option>			
 		</select>
 	</body>
 </html>
